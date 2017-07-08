@@ -8,5 +8,6 @@ install:
 before_script:
     - ./helm init -c
     - ./helm dependency update socks-shop
-    - ./helm package socks-shop
+    - ./helm lint socks-shop
+    - ./helm serve &
     - ./landscaper --help
