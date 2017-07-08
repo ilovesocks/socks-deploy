@@ -8,7 +8,7 @@ configuration:
     enabled: false
     url: zipkin.zipkin.svc.cluster.local
   frontend:
-    replicas: 1
+    replicas: 2
   loadtest:
     replicas: 2
     enabled: false
