@@ -1,0 +1,12 @@
+language: generic
+
+install:
+    - curl -L https://github.com/Eneco/landscaper/releases/download/1.0.7/landscaper-1.0.7-linux-amd64.tar.gz | tar zx
+    - curl -L https://kubernetes-helm.storage.googleapis.com/helm-v2.5.0-linux-amd64.tar.gz | tar zx
+    - mv linux-amd64/helm .
+
+before_script:
+    - ./helm init -c
+    - ./helm dependency update socks-shop
+    - ./helm package socks-shop
+    - ./landscaper --help
