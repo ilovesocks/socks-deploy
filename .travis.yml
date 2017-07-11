@@ -16,5 +16,5 @@ before_script:
     - ./helm serve &
 
 script:
-    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./landscaper apply --namespace dev socks.yaml; fi'
-    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./landscaper apply --namespace prod socks.yaml; fi'
+    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./landscaper apply --dry-run socks.yaml; fi'
+    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./landscaper apply socks.yaml; fi'
