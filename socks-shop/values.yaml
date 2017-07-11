@@ -9,6 +9,7 @@ zipkin:
 frontend:
     replicas: 1
     ip: none
+    domain: example.com
 loadtest:
     replicas: 2
     enabled: false

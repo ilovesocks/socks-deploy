@@ -1,0 +1,7 @@
+name: kube-lego
+release:
+  chart: stable/kube-lego:0.1.10
+configuration:
+  config:
+    LEGO_EMAIL: "socks@kragniz.eu"
+    LEGO_URL: "https://acme-v01.api.letsencrypt.org/directory"
