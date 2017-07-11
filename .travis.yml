@@ -16,5 +16,11 @@ before_script:
     - ./helm serve &
 
 script:
-    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./landscaper apply --dry-run socks.yaml; fi'
-    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./landscaper apply socks.yaml; fi'
+    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+        sed -i -e 's/IP_NAME/socks-dev/g' socks.yaml;
+        ./landscaper apply --dry-run socks.yaml;
+      fi
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+        sed -i -e 's/IP_NAME/socks-prod/g' socks.yaml;
+        ./landscaper apply socks.yaml;
+      fi

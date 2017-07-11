@@ -9,7 +9,7 @@ configuration:
     url: zipkin.zipkin.svc.cluster.local
   frontend:
     replicas: 2
-    ip: socks-dev
+    ip: IP_NAME
   loadtest:
     replicas: 2
     enabled: false
