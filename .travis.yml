@@ -1,8 +1,8 @@
 language: generic
 
 before_install:
-    - openssl aes-256-cbc -K $encrypted_c6060cc7b88f_key -iv $encrypted_c6060cc7b88f_iv -in kubeconfig.enc -out kubeconfig -d
-    - export KUBECONFIG=./kubeconfig
+    - openssl aes-256-cbc -K $encrypted_c6060cc7b88f_key -iv $encrypted_c6060cc7b88f_iv -in secrets.tar.enc -out secrets.tar -d
+    - tar xvf secrets.tar
 
 install:
     - curl -L https://github.com/Eneco/landscaper/releases/download/1.0.7/landscaper-1.0.7-linux-amd64.tar.gz | tar zx
@@ -16,11 +16,13 @@ before_script:
     - ./helm serve &
 
 script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-        sed -i -e 's/IP_NAME/socks-dev/g' socks.yaml;
-        ./landscaper apply --dry-run socks.yaml;
-      fi
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
         sed -i -e 's/IP_NAME/socks-prod/g' socks.yaml;
-        ./landscaper apply socks.yaml;
+        export KUBECONFIG=./kubeconfig-prod;
+        echo "deploying to production...";
+      else
+        sed -i -e 's/IP_NAME/socks-dev/g' socks.yaml;
+        export KUBECONFIG=./kubeconfig-dev;
+        echo "deploying to dev...";
       fi
+    - ./landscaper apply socks.yaml;
