@@ -8,7 +8,7 @@ configuration:
     enabled: false
     url: zipkin.zipkin.svc.cluster.local
   frontend:
-    replicas: 2
+    replicas: 1
     ip: IP_NAME
   loadtest:
     replicas: 2
