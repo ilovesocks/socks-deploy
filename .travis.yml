@@ -17,12 +17,14 @@ before_script:
 
 script:
     - if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
-        sed -i -e 's/IP_NAME/socks-prod/g' socks.yaml;
+        sed -i -e 's/IP_NAME/socks-prod/g' landscapes/socks.yaml;
+        sed -i -e 's/DOMAIN_NAME/socks.kragniz.eu/g' landscapes/socks.yaml;
         export KUBECONFIG=./kubeconfig-prod;
         echo "deploying to production...";
       else
-        sed -i -e 's/IP_NAME/socks-dev/g' socks.yaml;
+        sed -i -e 's/IP_NAME/socks-dev/g' landscapes/socks.yaml;
+        sed -i -e 's/DOMAIN_NAME/dev1.socks.kragniz.eu/g' landscapes/socks.yaml;
         export KUBECONFIG=./kubeconfig-dev;
         echo "deploying to dev...";
       fi
-    - ./landscaper apply socks.yaml;
+    - ./landscaper apply landscapes/*.yaml;

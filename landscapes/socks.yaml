@@ -10,6 +10,7 @@ configuration:
   frontend:
     replicas: 2
     ip: IP_NAME
+    domain: DOMAIN_NAME
   loadtest:
     replicas: 2
     enabled: false

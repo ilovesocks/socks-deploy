@@ -3,11 +3,17 @@ kind: Ingress
 metadata:
   name: socks-ingress
   annotations:
+    kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.global-static-ip-name: "{{ .Values.frontend.ip }}"
     kubernetes.io/ingress.class: "gce"
 spec:
+  tls:
+    - hosts:
+      - "{{ .Values.frontend.domain }}"
+      secretName: socks-tls
   rules:
-  - http:
+  - host: "{{ .Values.frontend.domain }}"
+    http:
       paths:
       - path: /*
         backend:
