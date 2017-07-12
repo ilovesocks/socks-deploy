@@ -5,7 +5,7 @@ configuration:
   java:
     options: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
   zipkin:
-    enabled: false
+    enabled: true
     url: zipkin.zipkin.svc.cluster.local
   frontend:
     replicas: 2
